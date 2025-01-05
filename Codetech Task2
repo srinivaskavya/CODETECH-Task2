@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Web Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vulnerable Web Application</h1>
+    
+    <h2>SQL Injection Test</h2>
+    <form action="vulnerable_backend.php" method="GET">
+        <label for="username">Enter Username:</label><br>
+        <input type="text" id="username" name="username" placeholder="Enter your username">
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2>XSS Test</h2>
+    <form action="" method="GET" onsubmit="return xssTest()">
+        <label for="comment">Leave a Comment:</label><br>
+        <input type="text" id="comment" name="comment" placeholder="Leave a comment">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        // Simulated XSS Vulnerability
+        function xssTest() {
+            var comment = document.getElementById('comment').value;
+            var resultDiv = document.getElementById('result');
+
+            // Unsanitized output (XSS vulnerability example)
+            resultDiv.innerHTML = "User Comment: " + comment;
+
+            // Prevent default form submission
+            return false;
+        }
+    </script>
+
+</body>
+</html>
